@@ -15,16 +15,58 @@ output: head-->1-->2-->3-->null
 
 Please complete the following program to fullfil the function.
 */
+
+import java.util.Scanner;
+
 public class homework20_1
 {
    public static void main(String[] args)
    {
-      //add your code here
+      LinkedList list = new LinkedList();
+      Scanner scanner = new Scanner(System.in);
+      System.out.println("Please enter five integers:");
+
+      for (int i = 0; i < 5; i++) {
+         System.out.print("Enter integer " + (i + 1) + ": ");
+         int number = scanner.nextInt();
+
+
+         ListNode newNode = new ListNode(number);
+         if (list.head == null) {
+            list.head = newNode;
+         } else {
+            ListNode current = list.head;
+            while (current.next != null) {
+               current = current.next;
+            }
+            current.next = newNode;
+         }
+      }
+
+      scanner.close();
+      deleteDuplicates(list);
+      System.out.println(list.toString());
    
    }
    public static void deleteDuplicates(LinkedList llist)
    {
-      //add your code here
+      // If llist length is either 0 or 1 (means there is no duplicates)
+      if (llist.head == null || llist.head.next == null) {
+         return;
+      }
+
+      ListNode current = llist.head;
+
+      // will stop @ current being the last node or the list is done
+      while (current != null && current.next != null) {
+
+         // Will remove pointer to current.next and point it to the one two ahead
+         if (current.value == current.next.value) {
+            current.next = current.next.next;
+         } else {
+            current = current.next;
+         }
+      }
    }
 
 }
